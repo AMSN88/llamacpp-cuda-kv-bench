@@ -1,0 +1,58 @@
+name: sanity
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Syntax check (all scripts compile)
+        run: python -m py_compile scripts/*.py
+
+      - name: No model weights or binaries are tracked
+        run: |
+          set -e
+          tracked=$(git ls-files | grep -Ei '\.(gguf|ggml|safetensors|dll|so|dylib|exe)$' || true)
+          if [ -n "$tracked" ]; then
+            echo "The following binary/model files must not be tracked:"
+            echo "$tracked"
+            exit 1
+          fi
+          echo "OK: no model weights or binaries tracked"
+
+      - name: Expected result artifacts exist and are non-empty
+        run: |
+          set -e
+          for f in results/llama_bench_q4_q8.csv \
+                   results/stress_results.csv \
+                   results/gpu_mem_summary.md \
+                   results/llama_bench_q4_q8.md \
+                   docs/llama_kv_cache_notes.md; do
+            if [ ! -s "$f" ]; then
+              echo "missing or empty: $f"
+              exit 1
+            fi
+            echo "OK: $f"
+          done
+
+      - name: Repository declares it ships no llama.cpp source
+        run: |
+          set -e
+          leaked=$(git ls-files | grep -Ei '^(src|ggml|common)/.*\.(c|cc|cpp|h|hpp|cu|cuh)$' || true)
+          if [ -n "$leaked" ]; then
+            echo "llama.cpp source appears to be vendored, which this repo does not intend:"
+            echo "$leaked"
+            exit 1
+          fi
+          echo "OK: no vendored llama.cpp source"

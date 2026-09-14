@@ -1,0 +1,138 @@
+﻿=== llama-server experiment: np10_c5120_kvu_c10 ===
+started : 2026-09-12T23:50:01.0178267+08:00
+exe     : E:\llama.cpp\build\bin\Release\llama-server.exe
+args    : -m E:\llama.cpp\models\Qwen-7B-Chat.Q4_K_M.gguf --host 127.0.0.1 --port 8080 -ngl 99 --cont-batching --metrics -ctk q8_0 -ctv q8_0 -fa on -c 5120 -np 10 --kv-unified
+cwd     : E:\llama.cpp\build\bin\Release
+
+SERVER_READY after 13.4s
+=== stress run ===
+[23:50:15] target=http://127.0.0.1:8080 endpoint=/v1/chat/completions concurrency=10 target_prompt_tokens=384 max_tokens=64
+[23:50:15] /props: model_path=E:\llama.cpp\models\Qwen-7B-Chat.Q4_K_M.gguf n_ctx=5120
+[23:50:15] calibration: 2840 chars -> 501 tokens (5.669 chars/token)
+[23:50:15] built 10 prompts of ~2419 chars each
+[23:50:15] gpu sampler started -> E:\output\gpu_mem_np10_c5120_kvu_c10.csv (interval 100 ms)
+[23:50:20] all requests finished in 5.37 s
+[23:50:21] gpu sampler stopped: 35 samples, 0 errors
+[23:50:21] wrote E:\output\metrics_np10_c5120_kvu_c10.txt (1644 bytes)
+[23:50:21] wrote 10 rows -> E:\output\stress_results.csv
+------------------------------------------------------------------------------
+tag=np10_c5120_kvu_c10  concurrency=10  wall=5.37s  ok=10  failed=0
+TTFT  ms: min=1028.0 mean=1817.3 max=2636.1
+TPOT  ms: min=59.745 mean=78.124 max=96.027
+completion tokens: mean=42.0
+aggregate output throughput = 78.27 tok/s
+------------------------------------------------------------------------------
+=== server stopped: 2026-09-12T23:50:23.0664820+08:00 ===
+
+=== SERVER STDOUT ===
+=== SERVER STDERR ===
+0.00.088.484 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.173.600 W srv  llama_server: -----------------
+0.00.173.603 W srv  llama_server: CORS is set to allow all origins ('*') and no API key is set
+0.00.173.604 W srv  llama_server: this can be a security risk (cross-origin attacks)
+0.00.173.604 W srv  llama_server: more info: https://github.com/ggml-org/llama.cpp/pull/25655
+0.00.173.604 W srv  llama_server: -----------------
+0.00.187.710 I srv    load_model: loading model 'E:\llama.cpp\models\Qwen-7B-Chat.Q4_K_M.gguf'
+0.00.646.158 W load: missing pre-tokenizer type, using: 'default'
+0.00.646.163 W load:                                             
+0.00.646.163 W load: ************************************        
+0.00.646.164 W load: GENERATION QUALITY WILL BE DEGRADED!        
+0.00.646.164 W load: CONSIDER REGENERATING THE MODEL             
+0.00.646.164 W load: ************************************        
+0.00.646.164 W load:                                             
+0.00.733.726 W load: control-looking token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden
+0.00.743.552 W load: special_eos_id is not in special_eog_ids - the tokenizer config may be incorrect
+0.11.516.024 I srv    load_model: initializing, n_slots = 10, n_ctx_slot = 5120, kv_unified = 'true'
+0.11.531.254 I srv  llama_server: model loaded
+0.11.531.260 I srv  llama_server: listening on http://127.0.0.1:8080
+0.12.779.266 I slot get_availabl: id  9 | task -1 | selected slot by LRU, t_last = -1
+0.12.779.357 I slot launch_slot_: id  9 | task 2 | processing task, is_child = 0
+0.12.779.408 I slot get_availabl: id  8 | task -1 | selected slot by LRU, t_last = -1
+0.12.779.470 I slot launch_slot_: id  8 | task 3 | processing task, is_child = 0
+0.12.779.512 I slot get_availabl: id  7 | task -1 | selected slot by LRU, t_last = -1
+0.12.779.586 I slot launch_slot_: id  7 | task 0 | processing task, is_child = 0
+0.12.779.623 I slot get_availabl: id  6 | task -1 | selected slot by LRU, t_last = -1
+0.12.779.679 I slot launch_slot_: id  6 | task 4 | processing task, is_child = 0
+0.12.779.709 I slot get_availabl: id  5 | task -1 | selected slot by LRU, t_last = -1
+0.12.779.772 I slot launch_slot_: id  5 | task 1 | processing task, is_child = 0
+0.13.792.820 I slot get_availabl: id  4 | task -1 | selected slot by LRU, t_last = -1
+0.13.792.933 I slot launch_slot_: id  4 | task 5 | processing task, is_child = 0
+0.13.792.952 I slot get_availabl: id  3 | task -1 | selected slot by LRU, t_last = -1
+0.13.793.003 I slot launch_slot_: id  3 | task 7 | processing task, is_child = 0
+0.13.793.019 I slot get_availabl: id  2 | task -1 | selected slot by LRU, t_last = -1
+0.13.793.066 I slot launch_slot_: id  2 | task 9 | processing task, is_child = 0
+0.13.793.080 I slot get_availabl: id  1 | task -1 | selected slot by LRU, t_last = -1
+0.13.793.130 I slot launch_slot_: id  1 | task 8 | processing task, is_child = 0
+0.13.793.136 I slot get_availabl: id  0 | task -1 | selected slot by LRU, t_last = -1
+0.13.793.217 I slot launch_slot_: id  0 | task 10 | processing task, is_child = 0
+0.17.729.755 W decode: failed to find a memory slot for batch of size 10
+0.17.729.771 W srv        decode: failed to find free space in the KV cache, retrying with smaller batch size, off = 0, n_batch = 1024, ret = 1
+0.17.729.887 W decode: failed to find a memory slot for batch of size 10
+0.17.729.888 W srv        decode: failed to find free space in the KV cache, retrying with smaller batch size, off = 0, n_batch = 512, ret = 1
+0.17.729.966 W decode: failed to find a memory slot for batch of size 10
+0.17.729.967 W srv        decode: failed to find free space in the KV cache, retrying with smaller batch size, off = 0, n_batch = 256, ret = 1
+0.17.730.069 W decode: failed to find a memory slot for batch of size 10
+0.17.730.070 W srv        decode: failed to find free space in the KV cache, retrying with smaller batch size, off = 0, n_batch = 128, ret = 1
+0.17.730.173 W decode: failed to find a memory slot for batch of size 10
+0.17.730.174 W srv        decode: failed to find free space in the KV cache, retrying with smaller batch size, off = 0, n_batch = 64, ret = 1
+0.17.730.275 W decode: failed to find a memory slot for batch of size 10
+0.17.730.275 W srv        decode: failed to find free space in the KV cache, retrying with smaller batch size, off = 0, n_batch = 32, ret = 1
+0.17.730.376 W decode: failed to find a memory slot for batch of size 10
+0.17.730.377 W srv        decode: failed to find free space in the KV cache, retrying with smaller batch size, off = 0, n_batch = 16, ret = 1
+0.17.730.501 W decode: failed to find a memory slot for batch of size 10
+0.17.730.503 W srv        decode: failed to find free space in the KV cache, retrying with smaller batch size, off = 0, n_batch = 8, ret = 1
+0.17.811.508 W decode: failed to find a memory slot for batch of size 2
+0.17.811.515 W srv        decode: failed to find free space in the KV cache, retrying with smaller batch size, off = 8, n_batch = 1024, ret = 1
+0.17.811.629 W decode: failed to find a memory slot for batch of size 2
+0.17.811.630 W srv        decode: failed to find free space in the KV cache, retrying with smaller batch size, off = 8, n_batch = 512, ret = 1
+0.17.811.736 W decode: failed to find a memory slot for batch of size 2
+0.17.811.737 W srv        decode: failed to find free space in the KV cache, retrying with smaller batch size, off = 8, n_batch = 256, ret = 1
+0.17.811.849 W decode: failed to find a memory slot for batch of size 2
+0.17.811.850 W srv        decode: failed to find free space in the KV cache, retrying with smaller batch size, off = 8, n_batch = 128, ret = 1
+0.17.811.969 W decode: failed to find a memory slot for batch of size 2
+0.17.811.970 W srv        decode: failed to find free space in the KV cache, retrying with smaller batch size, off = 8, n_batch = 64, ret = 1
+0.17.812.060 W decode: failed to find a memory slot for batch of size 2
+0.17.812.061 W srv        decode: failed to find free space in the KV cache, retrying with smaller batch size, off = 8, n_batch = 32, ret = 1
+0.17.812.176 W decode: failed to find a memory slot for batch of size 2
+0.17.812.177 W srv        decode: failed to find free space in the KV cache, retrying with smaller batch size, off = 8, n_batch = 16, ret = 1
+0.17.812.284 W decode: failed to find a memory slot for batch of size 2
+0.17.812.285 W srv        decode: failed to find free space in the KV cache, retrying with smaller batch size, off = 8, n_batch = 8, ret = 1
+0.17.812.398 W decode: failed to find a memory slot for batch of size 2
+0.17.812.399 W srv        decode: failed to find free space in the KV cache, retrying with smaller batch size, off = 8, n_batch = 4, ret = 1
+0.17.812.509 W decode: failed to find a memory slot for batch of size 2
+0.17.812.509 W srv        decode: failed to find free space in the KV cache, retrying with smaller batch size, off = 8, n_batch = 2, ret = 1
+0.17.812.614 W decode: failed to find a memory slot for batch of size 2
+0.17.812.615 W srv        decode: failed to find free space in the KV cache, retrying with smaller batch size, off = 8, n_batch = 1, ret = 1
+0.17.812.725 W decode: failed to find a memory slot for batch of size 1
+0.17.812.729 E srv        decode: Context size has been exceeded. off = 8, n_batch = 1, ret = 1
+0.17.812.734 E srv    send_error: task id = 10, error: Context size has been exceeded.
+0.17.812.755 I slot      release: id  0 | task 10 | stop processing: n_tokens = 512, truncated = 0
+0.17.812.787 W srv          stop: cancel task, id_task = 10
+0.17.812.961 E srv    send_error: task id = 8, error: Context size has been exceeded.
+0.17.812.980 I slot      release: id  1 | task 8 | stop processing: n_tokens = 512, truncated = 0
+0.17.812.998 W srv          stop: cancel task, id_task = 8
+0.17.813.040 E srv    send_error: task id = 9, error: Context size has been exceeded.
+0.17.813.055 I slot      release: id  2 | task 9 | stop processing: n_tokens = 512, truncated = 0
+0.17.813.070 W srv          stop: cancel task, id_task = 9
+0.17.813.130 E srv    send_error: task id = 7, error: Context size has been exceeded.
+0.17.813.144 I slot      release: id  3 | task 7 | stop processing: n_tokens = 512, truncated = 0
+0.17.813.152 W srv          stop: cancel task, id_task = 7
+0.17.813.198 E srv    send_error: task id = 5, error: Context size has been exceeded.
+0.17.813.211 I slot      release: id  4 | task 5 | stop processing: n_tokens = 511, truncated = 0
+0.17.813.220 W srv          stop: cancel task, id_task = 5
+0.17.813.298 E srv    send_error: task id = 1, error: Context size has been exceeded.
+0.17.813.316 I slot      release: id  5 | task 1 | stop processing: n_tokens = 513, truncated = 0
+0.17.813.319 W srv          stop: cancel task, id_task = 1
+0.17.813.419 E srv    send_error: task id = 4, error: Context size has been exceeded.
+0.17.813.432 I slot      release: id  6 | task 4 | stop processing: n_tokens = 513, truncated = 0
+0.17.813.444 W srv          stop: cancel task, id_task = 4
+0.17.813.522 E srv    send_error: task id = 0, error: Context size has been exceeded.
+0.17.813.531 I slot      release: id  7 | task 0 | stop processing: n_tokens = 513, truncated = 0
+0.17.813.534 W srv          stop: cancel task, id_task = 0
+0.17.813.615 E srv    send_error: task id = 3, error: Context size has been exceeded.
+0.17.813.621 I slot      release: id  8 | task 3 | stop processing: n_tokens = 513, truncated = 0
+0.17.813.623 W srv          stop: cancel task, id_task = 3
+0.17.813.691 E srv    send_error: task id = 2, error: Context size has been exceeded.
+0.17.813.695 I slot      release: id  9 | task 2 | stop processing: n_tokens = 511, truncated = 0
+0.17.813.702 W srv          stop: cancel task, id_task = 2
+0.17.816.382 E srv  update_slots: decode() failed: Context size has been exceeded.

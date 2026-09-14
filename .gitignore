@@ -1,0 +1,21 @@
+# --- model weights: never commit these (multi-GB, and not part of this repo) ---
+*.gguf
+*.ggml
+*.safetensors
+models/
+
+# --- llama.cpp build output (this repo does not contain source, but be safe) ---
+build/
+*.dll
+*.lib
+*.exp
+*.obj
+*.pdb
+
+# --- python ---
+__pycache__/
+*.py[cod]
+
+# --- scratch / temp files produced while running the experiments ---
+_tmp_*
+*.tmp

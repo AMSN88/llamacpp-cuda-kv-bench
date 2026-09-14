@@ -1,0 +1,9 @@
+# Python dependencies
+#
+# Only the stress harness needs a third-party package; the three analysis
+# scripts (stress_summarize.py, gpu_mem_analyze.py, bench_analyze.py) use the
+# standard library only.
+#
+# Note: asyncio+aiohttp is the alternative the task allowed, but this machine had
+# no aiohttp, so the harness uses requests + ThreadPoolExecutor.
+requests>=2.28

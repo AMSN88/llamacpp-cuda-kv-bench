@@ -1,0 +1,56 @@
+﻿=== llama-server experiment: np1_c8192_ctx6k ===
+started : 2026-09-12T23:48:39.1950910+08:00
+exe     : E:\llama.cpp\build\bin\Release\llama-server.exe
+args    : -m E:\llama.cpp\models\Qwen-7B-Chat.Q4_K_M.gguf --host 127.0.0.1 --port 8080 -ngl 99 --cont-batching --metrics -ctk q8_0 -ctv q8_0 -fa on -c 8192 -np 1
+cwd     : E:\llama.cpp\build\bin\Release
+
+SERVER_READY after 6.8s
+=== stress run ===
+[23:48:47] target=http://127.0.0.1:8080 endpoint=/v1/chat/completions concurrency=1 target_prompt_tokens=6000 max_tokens=64
+[23:48:47] /props: model_path=E:\llama.cpp\models\Qwen-7B-Chat.Q4_K_M.gguf n_ctx=8192
+[23:48:47] calibration: 2840 chars -> 501 tokens (5.669 chars/token)
+[23:48:47] built 1 prompts of ~34227 chars each
+[23:48:47] gpu sampler started -> E:\output\gpu_mem_np1_c8192_ctx6k.csv (interval 100 ms)
+[23:48:52] all requests finished in 5.74 s
+[23:48:53] gpu sampler stopped: 34 samples, 0 errors
+[23:48:53] wrote E:\output\metrics_np1_c8192_ctx6k.txt (1649 bytes)
+[23:48:53] wrote 1 rows -> E:\output\stress_results.csv
+------------------------------------------------------------------------------
+tag=np1_c8192_ctx6k  concurrency=1  wall=5.74s  ok=1  failed=0
+TTFT  ms: min=3549.4 mean=3549.4 max=3549.4
+TPOT  ms: min=29.625 mean=29.625 max=29.625
+prompt tokens: mean=6071  (n=1)
+completion tokens: mean=64.0
+aggregate output throughput = 11.16 tok/s
+------------------------------------------------------------------------------
+=== server stopped: 2026-09-12T23:48:55.2496535+08:00 ===
+
+=== SERVER STDOUT ===
+=== SERVER STDERR ===
+0.00.093.828 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.188.222 W srv  llama_server: -----------------
+0.00.188.226 W srv  llama_server: CORS is set to allow all origins ('*') and no API key is set
+0.00.188.227 W srv  llama_server: this can be a security risk (cross-origin attacks)
+0.00.188.227 W srv  llama_server: more info: https://github.com/ggml-org/llama.cpp/pull/25655
+0.00.188.227 W srv  llama_server: -----------------
+0.00.205.467 I srv    load_model: loading model 'E:\llama.cpp\models\Qwen-7B-Chat.Q4_K_M.gguf'
+0.00.518.249 W common_fit_params: failed to fit params to free device memory: n_gpu_layers already set by user to 99, abort
+0.00.665.234 W load: missing pre-tokenizer type, using: 'default'
+0.00.665.239 W load:                                             
+0.00.665.240 W load: ************************************        
+0.00.665.240 W load: GENERATION QUALITY WILL BE DEGRADED!        
+0.00.665.241 W load: CONSIDER REGENERATING THE MODEL             
+0.00.665.241 W load: ************************************        
+0.00.665.241 W load:                                             
+0.00.754.076 W load: control-looking token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden
+0.00.762.940 W load: special_eos_id is not in special_eog_ids - the tokenizer config may be incorrect
+0.04.812.123 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 8192, kv_unified = 'false'
+0.04.824.664 I srv  llama_server: model loaded
+0.04.824.670 I srv  llama_server: listening on http://127.0.0.1:8080
+0.06.181.922 I slot get_availabl: id  0 | task -1 | selected slot by LRU, t_last = -1
+0.06.182.036 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+0.11.569.010 I slot print_timing: id  0 | task 0 | prompt eval time =    3519.45 ms /  6071 tokens (    0.58 ms per token,  1724.98 tokens per second)
+0.11.569.019 I slot print_timing: id  0 | task 0 |        eval time =    1867.01 ms /    64 tokens (   29.17 ms per token,    34.28 tokens per second)
+0.11.569.020 I slot print_timing: id  0 | task 0 |       total time =    5386.47 ms /  6135 tokens
+0.11.569.021 I slot print_timing: id  0 | task 0 |    graphs reused =         63
+0.11.570.191 I slot      release: id  0 | task 0 | stop processing: n_tokens = 6134, truncated = 0

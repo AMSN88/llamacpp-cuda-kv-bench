@@ -1,0 +1,37 @@
+﻿=== llama-server experiment: np10_c32768 ===
+started : 2026-09-12T23:44:09.6442666+08:00
+exe     : E:\llama.cpp\build\bin\Release\llama-server.exe
+args    : -m E:\llama.cpp\models\Qwen-7B-Chat.Q4_K_M.gguf --host 127.0.0.1 --port 8080 -ngl 99 -c 32768 -np 10 --cont-batching --metrics
+cwd     : E:\llama.cpp\build\bin\Release
+
+SERVER_EXITED during startup after 14.3s, exitcode=
+=== server stopped: 2026-09-12T23:44:25.1011181+08:00 ===
+
+=== SERVER STDOUT ===
+=== SERVER STDERR ===
+0.00.041.052 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.139.612 W srv  llama_server: -----------------
+0.00.139.618 W srv  llama_server: CORS is set to allow all origins ('*') and no API key is set
+0.00.139.619 W srv  llama_server: this can be a security risk (cross-origin attacks)
+0.00.139.619 W srv  llama_server: more info: https://github.com/ggml-org/llama.cpp/pull/25655
+0.00.139.619 W srv  llama_server: -----------------
+0.00.142.926 I srv    load_model: loading model 'E:\llama.cpp\models\Qwen-7B-Chat.Q4_K_M.gguf'
+0.00.585.152 W common_fit_params: failed to fit params to free device memory: n_gpu_layers already set by user to 99, abort
+0.00.784.723 W load: missing pre-tokenizer type, using: 'default'
+0.00.784.731 W load:                                             
+0.00.784.731 W load: ************************************        
+0.00.784.732 W load: GENERATION QUALITY WILL BE DEGRADED!        
+0.00.784.732 W load: CONSIDER REGENERATING THE MODEL             
+0.00.784.733 W load: ************************************        
+0.00.784.733 W load:                                             
+0.00.925.150 W load: control-looking token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden
+0.00.943.288 W load: special_eos_id is not in special_eog_ids - the tokenizer config may be incorrect
+0.06.686.402 W llama_context: n_ctx is not divisible by n_seq_max - rounding down to 33280
+0.08.591.367 E ggml_backend_cuda_buffer_type_alloc_buffer: allocating 16640.00 MiB on device 0: cudaMalloc failed: out of memory
+0.08.591.585 E alloc_tensor_range: failed to allocate CUDA0 buffer of size 17448304640
+0.08.599.407 E llama_init_from_model: failed to initialize the context: failed to allocate buffer for kv cache
+0.08.599.561 E cmn  common_init_: failed to create context with model 'E:\llama.cpp\models\Qwen-7B-Chat.Q4_K_M.gguf'
+0.08.599.750 E cmn  common_init_: failed to create context with model 'E:\llama.cpp\models\Qwen-7B-Chat.Q4_K_M.gguf'
+0.08.600.729 E srv    load_model: failed to create_context with model 'E:\llama.cpp\models\Qwen-7B-Chat.Q4_K_M.gguf'
+0.08.601.323 I srv   operator (): operator (): cleaning up before exit...
+0.08.614.948 E srv  llama_server: exiting due to model loading error
