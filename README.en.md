@@ -210,7 +210,7 @@ Q8_0 therefore spends 1.68x the VRAM to become 1.32x slower at prefill and 1.66x
 
 ```powershell
 # $Repo = this repository root ; $LLAMA = llama.cpp repository root (clone and build it yourself)
-$Repo  = "F:\dsh\downloads\llamacpp-cuda-kv-report"
+$Repo  = "<repo root>"
 $LLAMA = "E:\llama.cpp"
 $Bin   = "$LLAMA\build\bin\Release"
 $Model = "$LLAMA\models\Qwen-7B-Chat.Q4_K_M.gguf"

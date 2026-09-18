@@ -29,7 +29,7 @@ rg -n "kv_unified|n_ctx_seq|n_seq_max" src/ common/ tools/server/
 rg -n "n_kv|nbatch_fa|k_VKQ" ggml/src/ggml-cuda/fattn-tile.cuh
 ```
 
-实际文件（与本任务预期一致）：
+实际文件：
 
 | 任务预期文件 | 实际情况 |
 |---|---|

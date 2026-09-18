@@ -98,7 +98,7 @@ tensor 名为 blk.N.attn_qkv.weight -> Q/K/V 融合
 
 ## 2. 编译
 
-`E:\llama.cpp` 在本任务开始前**已经是一个干净的 git 仓库**（`git status -sb` 无改动，
+`E:\llama.cpp` 在本项目开始前**已经是一个干净的 git 仓库**（`git status -sb` 无改动，
 HEAD 就是 `555881ebc`）。因此没有重复执行 `git clone`（只会重新下载同一棵树），
 改为**校验 origin 与 revision**，然后执行真正的编译：
 
@@ -141,7 +141,7 @@ ggml_cuda_init: found 1 CUDA devices (Total VRAM: 8187 MiB):
   Device 0: NVIDIA GeForce RTX 4060 Laptop GPU, compute capability 8.9, VMM: yes, VRAM: 8187 MiB
 ```
 
-`--kv-unified` 在本版本存在，因此按任务要求做了开/关对比：
+`--kv-unified` 在本版本存在，因此对开/关两种模式做了对比：
 
 ```
 -kvu,  --kv-unified, -no-kvu, --no-kv-unified
@@ -493,7 +493,7 @@ FA kernel 在连续 KV 上按 `nbatch_fa` 扫（`fattn-tile.cuh:954-977`），
 
 ### 7.1 Q8_0 的来源（重要）
 
-`E:\llama.cpp\models` 下**没有** Q8_0 模型。按用户确认的方案，
+`E:\llama.cpp\models` 下**没有** Q8_0 模型。采用二次量化方案，
 用本机 `llama-quantize` 从 Q4_K_M **本地重新量化**得到（未下载任何东西）：
 
 ```
@@ -600,7 +600,7 @@ llama.cpp 自己都警告"装不下，但用户用 `-ngl 99` 钉死了，放弃"
 ```powershell
 # $Repo  = 本仓库根目录（clone 下来的位置）
 # $LLAMA = llama.cpp 仓库根目录（需自行 clone 并编译）
-$Repo  = "F:\dsh\downloads\llamacpp-cuda-kv-report"
+$Repo  = "<本仓库根目录>"
 $LLAMA = "E:\llama.cpp"
 $Bin   = "$LLAMA\build\bin\Release"
 $Model = "$LLAMA\models\Qwen-7B-Chat.Q4_K_M.gguf"
@@ -698,8 +698,8 @@ python $Repo\scripts\bench_analyze.py
 | `git clone` 全新拉取 | **未执行**（改为校验） | `E:\llama.cpp` 已是干净仓库且 HEAD 就是目标 commit；重新 clone 只会重复下载同一棵树 |
 | `-c 32768 -np 10` 压测 | **阻塞（不可行）** | `cudaMalloc failed: out of memory`，需 16640 MiB KV > 8188 MiB。日志：`llama_server_np10_c32768.log` |
 | 10 并发 × 8k~16k 上下文 | **阻塞（不可行）** | 需 21~42 GB KV（q8_0），详见 §6.3-5。已用"单请求长上下文 + 10 并发短上下文"两条曲线替代 |
-| 真实截图 / 显存曲线图 | **未生成** | 本任务以命令行交付；显存曲线以 `gpu_mem_*.csv` 原始采样 + `gpu_mem_summary.md` 表格给出，未作图 |
-| 原始官方 Q8_0 模型 | **未使用** | 用户确认改用本地重新量化；如需要可给出可复现命令，但会下载约 8 GB |
+| 真实截图 / 显存曲线图 | **未生成** | 未作图；显存曲线以 `gpu_mem_*.csv` 原始采样 + `gpu_mem_summary.md` 表格给出，未作图 |
+| 原始官方 Q8_0 模型 | **未使用** | 改用本地重新量化；如需要可给出可复现命令，但会下载约 8 GB |
 | `--kv-unified` 的服务器侧 decode 指标 | **数据缺失** | `tokens_predicted_total` 读数为 0（见 §6.2 注），故不引用 |
 
 ### 10.2 不能证明 / 口径限制
